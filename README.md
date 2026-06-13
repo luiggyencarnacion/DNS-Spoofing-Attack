@@ -256,7 +256,7 @@ El script solicita todos los parámetros de forma **interactiva** al ejecutarse:
 
 ```bash
 # Ejecutar el script con privilegios root
-sudo python3 dns_spoofing.py
+sudo python3 dns_spoofing_attack.py
 ```
 
 ### Interacción esperada al iniciar
