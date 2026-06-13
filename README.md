@@ -256,7 +256,7 @@ El script solicita todos los parámetros de forma **interactiva** al ejecutarse:
 
 ```bash
 # Ejecutar el script con privilegios root
-sudo python3 dns_spoofing_attack.py
+sudo python3 dns_spoofing.py
 ```
 
 ### Interacción esperada al iniciar
@@ -450,18 +450,16 @@ Aunque el DNS sea redirigido, HSTS impide que el navegador cargue la página sin
 
 ```
 DNS-Spoofing-Attack/
-├── dns_spoofing.py          # Script principal (ARP MitM + DNS Spoof)
-├── requirements.txt         # Dependencias Python
+├── dns_spoofing.py               # Script principal (ARP MitM + DNS Spoof)
+├── requirements.txt              # Dependencias Python
 ├── README.md
 └── images/
-    ├── 01_topologia_gns3.png
-    ├── 02_script_parametros.png
-    ├── 03_arp_poisoning_activo.png
-    ├── 04_dns_query_interceptada_wireshark.png
-    ├── 05_dns_response_falsificada.png
-    ├── 06_pagina_falsa_navegador.png
-    ├── 07_nslookup_ip_atacante.png
-    └── 08_dai_contramedida.png
+    ├── 01_topologia_gns3.png             # Topología del laboratorio en GNS3
+    ├── 02_arp_poisoning_activo.png       # Script corriendo — ARP MitM + DNS activo
+    ├── 03_dns_response_falsificada.png   # Wireshark — respuesta DNS con IP del atacante
+    ├── 04_dns_response_legitima.png      # Wireshark — respuesta DNS legítima (referencia)
+    ├── 05_pagina_legitima_navegador.png  # Navegador cargando itla.edu.do real
+    └── 06_pagina_falsa_navegador.png     # Navegador cargando página falsa (itla-fake-website-1)
 ```
 
 ---
