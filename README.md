@@ -99,35 +99,9 @@ scapy>=2.5.0
 
 ### Topología
 
-```
-                              Cloud1
-                                │ eth0
-                                │ g1/0
-                           ┌────┴─────┐
-                           │   R-1    │  Gateway / DHCP
-                           └────┬─────┘
-                                │ g0/0
-                                │ Gig0/0
-                           ┌────┴──────┐
-                           │  SW-CORE  │  Root Bridge / VTP Server
-                           └───┬───┬───┘
-                      Gig0/1   │   │  Gig0/2
-             ┌─────────────────┘   └──────────────────┐
-        ┌────┴──────┐                          ┌───────┴───┐
-        │   SW-1    │                          │   SW-2    │
-        └─┬──┬──┬───┘                          └──┬──┬──┬──┘
-     Gig1/0│  │Gig1/1  Gig1/2           Gig1/0   │  │  │Gig2/0
-           │  │         │                         │  │  │
-      ┌────┘  └───┐  ┌──┴──────────┐         ┌───┘  │  └──────┐
- ┌────┴────┐ ┌────┴──┴──┐  ┌───────┴──────┐ ┌┴────┐ │   ┌────┴─┐
- │KaliLinux│ │UbuntuDesk│  │itla-fake-    │ │ PC2 │ │   │ PC3  │
- │   -1    │ │   top-1  │  │website-1     │ │     │ │   │      │
- │Atacante │ │  Víctima │  │Servidor Web  │ │VL20 │ │   │VL10  │
- └─────────┘ └──────────┘  │Falso         │ └─────┘ │   └──────┘
-  [ARP MitM]  [DNS query]  └──────────────┘
-  [DNS resp]  [carga pág]   [sirve página
-                             itla.edu.do]
+![Topología GNS3](images/01_topologia_gns3.png)
 
+```
 Flujo:
   UbuntuDesktop-1 ──ARP envenenado──► KaliLinux-1 ──► R-1
   UbuntuDesktop-1 ──DNS query──► KaliLinux-1
@@ -135,6 +109,7 @@ Flujo:
                                       ▼
   UbuntuDesktop-1 ◄── DNS resp: itla.edu.do = IP itla-fake-website-1
   UbuntuDesktop-1 ──HTTP GET──► itla-fake-website-1 (página falsa)
+  
 ```
 
 ### Parámetros Generales
@@ -208,12 +183,12 @@ El script escucha todo el tráfico UDP en el puerto 53 que ya atraviesa la inter
 ```
 UbuntuDesktop-1              KaliLinux-1            DNS legítimo
        │                          │                      │
-       │── DNS Query ─────────────►│                      │
+       │── DNS Query ────────────►│                      │
        │   id=0xAB12              │                      │
        │   "itla.edu.do A ?"      │                      │
-       │                          │  [detecta dominio]   │
-       │                          │  [extrae id=0xAB12]  │
-       │                          │  [construye respuesta]│
+       │                          │ [detecta dominio]    │
+       │                          │ [extrae id=0xAB12]   │
+       │                          │ [construye respuesta]│
        │◄─ DNS Response ──────────│                      │
        │   id=0xAB12  (mismo ID)  │                      │
        │   itla.edu.do A <IP fake>│                      │
